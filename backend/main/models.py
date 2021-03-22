@@ -35,20 +35,50 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class FoodItem(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name=models.CharField(max_length=255)
+    name=models.CharField(max_length=255,default="")
     price=models.IntegerField(default=0)
     image=models.ImageField()
 
 class UserDetail(models.Model):
-    name=models.CharField(max_length=255)
-    parent=models.ForeignKey(User,on_delete=models.CASCADE,related_name="details")
-    phone_no=models.CharField(max_length=255)
+    parent=models.ForeignKey(User,on_delete=models.CASCADE,related_name="udetails")
+    name=models.CharField(max_length=255,default="")
+    phone_no=models.CharField(max_length=255,default="")
 
 
 class RestrauntDetail(models.Model):
-    parent=models.ForeignKey(User,on_delete=models.CASCADE,related_name="details")
-    name=models.CharField(max_length=255)
-    Location=models.CharField(max_length=255)
-    Address=models.CharField(max_length=1500)
-    phone_no=models.CharField(max_length=255)
+    parent=models.ForeignKey(User,on_delete=models.CASCADE,related_name="rdetails")
+    name=models.CharField(max_length=255,default="")
+    Location=models.CharField(max_length=255,default="")
+    Address=models.CharField(max_length=1500,default="")
     image=models.ImageField()
+
+class Order(models.Model):
+    id= models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created = models.DateTimeField(auto_now_add=True)
+    time = models.DateTimeField(auto_now=True)
+    customer_id=models.CharField(max_length=500, null=True)
+    restrau_id=models.CharField(max_length=500, null=True)
+    is_active=models.BooleanField(default=True)
+    status=models.CharField(max_length=10,default="placed")
+    class Meta:
+        ordering = ('-created',)
+
+    def __str__(self):
+        return '%s' % (self.order_id)
+
+    def total(self):
+        total = 0
+        for item in self.orderitems.all():
+            total = total + int(item.total())
+        return str(total)
+
+class OrderItem(models.Model):
+    order=models.ForeignKey(Order,on_delete=models.CASCADE,related_name="orderitems")
+    desc = models.CharField(max_length=500, null=True)
+    item = models.ForeignKey(FoodItem, on_delete=models.PROTECT, null=True)
+    price = models.IntegerField(default=0)
+    quantity = models.IntegerField(default=1, null=False)
+
+    def total(self):
+        total = self.price * self.quantity
+        return str(total)
