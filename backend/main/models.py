@@ -34,6 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
 
 class FoodItem(models.Model):
+    parent=models.ForeignKey(User,on_delete=models.CASCADE,related_name="items")
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name=models.CharField(max_length=255,default="")
     price=models.IntegerField(default=0)
