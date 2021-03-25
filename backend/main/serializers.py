@@ -1,6 +1,6 @@
 from django.db.models import fields
 from rest_framework import serializers
-from .models import FoodItem,Order,UserDetail,RestrauntDetail
+from .models import FoodItem,Order,UserDetail,RestrauntDetail,OrderItem
 from django.contrib.auth import get_user_model, authenticate
 
 
@@ -9,7 +9,7 @@ class FoodSerializer(serializers.ModelSerializer):
         model=FoodItem
         fields=('name','id','price','image')
 
-class UserSerializer(serializers.ModelSerializer):
+class UseriSerializer(serializers.ModelSerializer):
     class Meta:
         model=UserDetail
         fields=('name','phone_no')
@@ -19,14 +19,26 @@ class RestrauSerializer(serializers.ModelSerializer):
         model=RestrauntDetail
         fields=('name','Location','Address','image')   
 
+
+class OrderItemSerializer(serializers.Serializer):
+    class Meta:
+        model=OrderItem
+        fields=('desc','item','price','quantity')
+
+class OrderSerializer(serializers.Serializer):
+    orderitems=OrderItemSerializer(many=True)
+    class Meta:
+        model:Order
+        fields=('created','is_active','status','id','orderitems','total')
+
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for the users object"""
     id=serializers.ReadOnlyField()
-    udetails=UserSerializer()
-    rdetails=RestrauSerializer()
+    placed_orders=OrderItemSerializer(many=True)
+    orders=OrderItemSerializer(many=True)
     class Meta:
         model = get_user_model()
-        fields = ('email', 'password', 'id','is_customer')
+        fields = ('email', 'password', 'id','is_customer','placed_orders','orders')
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
     def create(self, validated_data):
@@ -69,4 +81,6 @@ class AuthTokenSerializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
+
+
 

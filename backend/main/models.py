@@ -54,11 +54,10 @@ class RestrauntDetail(models.Model):
     image=models.ImageField()
 
 class Order(models.Model):
+    customer=models.ForeignKey(User,on_delete=models.CASCADE,related_name="placed_order")
+    Restraunt=models.ForeignKey(User,on_delete=models.CASCADE,related_name="orders")
     id= models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created = models.DateTimeField(auto_now_add=True)
-    time = models.DateTimeField(auto_now=True)
-    customer_id=models.CharField(max_length=500, null=True)
-    restrau_id=models.CharField(max_length=500, null=True)
     is_active=models.BooleanField(default=True)
     status=models.CharField(max_length=10,default="placed")
     class Meta:
