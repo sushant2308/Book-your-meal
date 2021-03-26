@@ -51,4 +51,50 @@ def fooditem(request,slug):
         food_item.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+@api_view(['POST',])
+def order_place(request,slug):
+    serializer=OrderSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(customer=request.user,Restraunt=User.objects.get(id=slug))
+        return Response(serializer.data,status=status.HTTP_201_CREATED)
 
+    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['POST',])
+def add_item(request,slug):
+    serializer=OrderItemSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(order=Order.objects.get(id=slug))
+        return Response(serializer.data,status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST',])
+def restraunt_detail(request):
+    serializer=RestrauSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(parent=request.user)
+        return Response(serializer.data,status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST',])
+def restraunt_detail(request):
+    serializer=RestrauSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(parent=request.user)
+        return Response(serializer.data,status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST',])
+def customer_detail(request):
+    serializer=UseriSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(parent=request.user)
+        return Response(serializer.data,status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
