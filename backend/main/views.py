@@ -12,7 +12,7 @@ class CreateUserView(generics.CreateAPIView):
     """Create a new user in the system"""
     serializer_class = UserSerializer
 
-
+ 
 class CreateTokenView(ObtainAuthToken):
     """Create a new auth token for user"""
     serializer_class = AuthTokenSerializer
@@ -29,27 +29,24 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
         """Retrieve and return authentication user"""
         return self.request.user
 
-@api_view(['GET', 'POST','DELETE'])
+@api_view(['GET',])
 def fooditem(request,slug):
-    if(request.METHOD=='GET'):
-        user=User.objects.get(id=slug)
-        food_items=FoodItem.objects.filter(parent=user)
-        serializer=FoodSerializer(food_items,many=True)
+    user=User.objects.get(id=slug)
+    food_items=FoodItem.objects.filter(parent=user)
+    serializer=FoodSerializer(food_items,many=True)
 
-        return Response(serializer.data)
+    return Response(serializer.data)
 
-    if(request.METHOD=='POST'):
-        serializer=FoodItem(data=request.data)
-        if serializer.is_valid():
-            serializer.save(parent=request.user)
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
 
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
-    if(request.METHOD=='DELETE'):
-        food_item=FoodItem.objects.get(id=slug)
-        food_item.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+@api_view(['POST',])
+def create_food(request):
+    serializer=FoodSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(parent=request.user)
+        return Response(serializer.data,status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST',])
 def order_place(request,slug):
@@ -71,14 +68,6 @@ def add_item(request,slug):
 
     return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST',])
-def restraunt_detail(request):
-    serializer=RestrauSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save(parent=request.user)
-        return Response(serializer.data,status=status.HTTP_201_CREATED)
-
-    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST',])
 def restraunt_detail(request):

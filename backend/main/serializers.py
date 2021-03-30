@@ -13,7 +13,7 @@ class UseriSerializer(serializers.ModelSerializer):
     class Meta:
         model=UserDetail
         fields=('name','phone_no')
-
+ 
 class RestrauSerializer(serializers.ModelSerializer):
     class Meta:
         model=RestrauntDetail
@@ -25,20 +25,22 @@ class OrderItemSerializer(serializers.Serializer):
         model=OrderItem
         fields=('desc','item','price','quantity')
 
-class OrderSerializer(serializers.Serializer):
-    orderitems=OrderItemSerializer(many=True)
+class OrderSerializer(serializers.ModelSerializer):
+    orderitems=OrderItemSerializer(many=True,read_only=True)
     class Meta:
-        model:Order
-        fields=('created','is_active','status','id','orderitems','total')
+        model=Order
+        fields=('created','is_active','status','id','orderitems')
 
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for the users object"""
     id=serializers.ReadOnlyField()
-    placed_orders=OrderItemSerializer(many=True)
-    orders=OrderItemSerializer(many=True)
+    placed_orders=OrderItemSerializer(many=True,read_only=True)
+    orders=OrderItemSerializer(many=True,read_only=True)
+    udetails=UseriSerializer(many=True,read_only=True)
+    rdetails=RestrauSerializer(many=True,read_only=True)
     class Meta:
         model = get_user_model()
-        fields = ('email', 'password', 'id','is_customer','placed_orders','orders')
+        fields = ('email', 'password', 'id','is_customer','placed_orders','orders','udetails','rdetails')
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
     def create(self, validated_data):
