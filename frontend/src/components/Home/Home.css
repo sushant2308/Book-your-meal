@@ -1,0 +1,15 @@
+
+  .home-img {
+    background-image: url('./Home.png');
+    
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+  }
+  .home {
+      margin-top: 3 rem;
+      height: 70vh;
+  }
