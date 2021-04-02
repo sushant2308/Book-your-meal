@@ -49,8 +49,10 @@ class UserDetail(models.Model):
 class RestrauntDetail(models.Model):
     parent=models.ForeignKey(User,on_delete=models.CASCADE,related_name="rdetails")
     name=models.CharField(max_length=255,default="")
-    Location=models.CharField(max_length=255,default="")
-    Address=models.CharField(max_length=1500,default="")
+    latitude=models.CharField(max_length=255,default="")
+    longitude=models.CharField(max_length=255,default="")
+    address=models.CharField(max_length=1500,default="")
+    rating=models.IntegerField(default=0)
     image=models.ImageField()
 
 class Order(models.Model):

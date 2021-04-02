@@ -14,7 +14,7 @@ function App() {
       
         <div className="App">
             <Switch>
-              <Route path='/' component={Customer} exact/>
+              <Route  path='/' component={Customer} exact/>
               <Route path='/restraunt'  component={Home_restrau} exact/>
               <Route path='/restraunt/login' component={Login_restrau} exact/>
               <Route path='/restraunt/register' component={Register} exact/>   
@@ -31,7 +31,7 @@ const Customer = () => (
         <Navbar/>
         <Route path='/'  component={Home} exact/>
         <Route path='/login' component={Login} exact/>
-        <Route path='/signup' component={Signup}/>
+        <Route path='/signup' component={Signup} exact/>
     </div>
 )
 export default App;
