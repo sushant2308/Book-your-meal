@@ -73,6 +73,7 @@ def add_item(request,slug):
 def restraunt_detail(request):
     serializer=RestrauSerializer(data=request.data)
     if serializer.is_valid():
+        print(request.user)
         serializer.save(parent=request.user)
         return Response(serializer.data,status=status.HTTP_201_CREATED)
 

@@ -21,7 +21,7 @@ function Register() {
           }
         })
             .then(res => {
-              setredirect("/login");
+              setredirect("/restraunt/login");
             })
             .catch(err =>alert("You may be registered already Login from login page"))
       };

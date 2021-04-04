@@ -17,7 +17,7 @@ class UseriSerializer(serializers.ModelSerializer):
 class RestrauSerializer(serializers.ModelSerializer):
     class Meta:
         model=RestrauntDetail
-        fields=('name','Location','Address','image')   
+        fields=('name','latitude','longitude','address','image')   
 
 
 class OrderItemSerializer(serializers.Serializer):
@@ -34,13 +34,13 @@ class OrderSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for the users object"""
     id=serializers.ReadOnlyField()
-    placed_orders=OrderItemSerializer(many=True,read_only=True)
-    orders=OrderItemSerializer(many=True,read_only=True)
+    #placed_orders=OrderItemSerializer(many=True,read_only=True)
+    #orders=OrderItemSerializer(many=True,read_only=True)
     udetails=UseriSerializer(many=True,read_only=True)
     rdetails=RestrauSerializer(many=True,read_only=True)
     class Meta:
         model = get_user_model()
-        fields = ('email', 'password', 'id','is_customer','placed_orders','orders','udetails','rdetails')
+        fields = ('email', 'password', 'id','is_customer','udetails','rdetails')
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
     def create(self, validated_data):

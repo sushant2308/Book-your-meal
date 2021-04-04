@@ -20,7 +20,7 @@ function Login_restrau() {
         })
             .then(res => {
               localStorage.setItem('token',res.data.token);
-              setredirect("/");
+              setredirect("/restraunt");
             })
             .catch(err =>alert("Wrong email or password"))
       };
