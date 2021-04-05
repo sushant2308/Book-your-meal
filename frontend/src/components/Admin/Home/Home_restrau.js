@@ -6,10 +6,10 @@ import axios from 'axios';
 import React,{useEffect, useState} from 'react';
 import {useDispatch,useSelector} from 'react-redux'
 import { setCurrentUser } from '../../../redux/User/useraction';
+import Profile from './Profile';
 function Home_restrau() {
   const [data,setdata]=useState([]);
   const dispatch = useDispatch()
-  const dg = useSelector(state => state.user_reducer)
   useEffect(() => {
     const fetchData = async ()=>{
     try {
@@ -21,8 +21,8 @@ function Home_restrau() {
           }
       });
       setdata(res.data.rdetails);
-      dispatch(setCurrentUser(data))
-      console.log(res)
+      dispatch(setCurrentUser(res.data))
+      console.log(data)
       
     }
     catch(err){
@@ -33,17 +33,11 @@ function Home_restrau() {
 fetchData();
 
 },[]);
-console.log(dg)
   return (
         <div className="container home-restrau">
-          {
-            localStorage.getItem('token')==null &&  <h1>Please <Link to='/restraunt/login' className="home-links">Login</Link> or <Link to='/restraunt/register' className="home-links">Register</Link> to start your business with Book-Your-Meal</h1>
 
-          }
-          {
-            data.length==0  && <Details/>
-          }
-        
+          {localStorage.getItem('token')==null?<h1>Please <Link to='/restraunt/login' className="home-links">Login</Link> or <Link to='/restraunt/register' className="home-links">Register</Link> to start your business with Book-Your-Meal</h1>:(data.length==0?<Details/>:<Profile/>)}
+ 
    
         </div>
 

@@ -15,8 +15,6 @@ function Details() {
     else{
         alert("Please Allow location excess")
     }
-
-   console.log(image);
     const handleSubmit = (e) => {
         e.preventDefault();
         let form_data = new FormData();
@@ -48,8 +46,8 @@ function Details() {
           }
   return (
       <div>
-        {
-            localStorage.getItem('token')!=null && <div className="container home-restrau">
+        
+            <div className="container home-restrau">
             <h3 className="login-heading mb-4">FIll following details to continue</h3>
             <form onSubmit={handleSubmit}>
                 <div className="form-label-group">
@@ -69,7 +67,7 @@ function Details() {
 
             </form>
 </div>
-        }
+        
       </div>
 
 

@@ -38,9 +38,10 @@ class UserSerializer(serializers.ModelSerializer):
     #orders=OrderItemSerializer(many=True,read_only=True)
     udetails=UseriSerializer(many=True,read_only=True)
     rdetails=RestrauSerializer(many=True,read_only=True)
+    items=FoodSerializer(many=True,read_only=True)
     class Meta:
         model = get_user_model()
-        fields = ('email', 'password', 'id','is_customer','udetails','rdetails')
+        fields = ('email', 'password', 'id','is_customer','udetails','rdetails','items')
         extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
     def create(self, validated_data):
