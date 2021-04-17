@@ -1,10 +1,18 @@
 
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector ,useDispatch} from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setCurrentUser } from '../../../redux/User/useraction';
+
 function Profile() {
     const dg = useSelector(state => state.user_reducer)
-    console.log(dg);
+    const dispatch = useDispatch()
+    function logout() {
+        dispatch(setCurrentUser(null))
+        localStorage.setItem('token',null);
+       window.location.reload()
+    }
+
   return (
       <div className="container">
         <nav className="navbar navbar-expand-lg">
@@ -20,7 +28,7 @@ function Profile() {
                         <Link className="nav-link" to='/restraunt/add_food'>Add Food Items</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to=''>Logout</Link>
+                        <Link className="nav-link" onClick={logout} style={{border:"0px"}}>Logout</Link>
                     </li>
                 </ul>
             </div>

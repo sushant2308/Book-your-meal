@@ -1,7 +1,6 @@
 
 import './Navbar.css';
-import {Link} from 'react-router-dom'
-import Search from '../Search/Search';
+import {Link} from 'react-router-dom';
 function Navbar() {
   return (
         <nav className="navbar navbar-expand-lg">
@@ -13,7 +12,7 @@ function Navbar() {
             </button>
             
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <Search/>
+           
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
                         <Link to="/login" className="nav-link">Login</Link>

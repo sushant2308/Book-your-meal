@@ -15,11 +15,12 @@ function App() {
       
         <div className="App">
             <Switch>
-              <Route  path='/' component={Customer} exact/>
-              <Route path='/restraunt'  component={Home_restrau} exact/>
+            <Route path='/restraunt'  component={Home_restrau} exact/>
               <Route path='/restraunt/login' component={Login_restrau} exact/>
               <Route path='/restraunt/register' component={Register} exact/>   
               <Route path='/restraunt/add_food' component={Product} exact/>   
+              <Route  path='' component={Customer} exact/>
+
             </Switch>  
         </div>
      
@@ -31,9 +32,12 @@ function App() {
 const Customer = () => (
     <div>
         <Navbar/>
-        <Route path='/'  component={Home} exact/>
-        <Route path='/login' component={Login} exact/>
-        <Route path='/signup' component={Signup} exact/>
+        <Switch>
+          <Route path='/'  component={Home} exact/>
+          <Route path='/login' component={Login} exact/>
+          <Route path='/signup' component={Signup} exact/>
+        </Switch>
+
     </div>
 )
 export default App;

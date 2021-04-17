@@ -6,12 +6,14 @@ import { Redirect } from 'react-router-dom';
 function Signup() {
     const [email, setemail] = useState('')
     const [password, setpassword] = useState('')
+    const [is_customer, setiscustomer] = useState(true)
     const [redirect, setredirect] = useState(null)
       const handleSubmit = (e) => {
         e.preventDefault();
         let form_data = new FormData();
         form_data.append('email', email);
         form_data.append('password', password);
+        form_data.append('is_customer', is_customer);
         let url = 'http://127.0.0.1:8000/api/create/';
         axios.post(url, form_data, {
           headers: {

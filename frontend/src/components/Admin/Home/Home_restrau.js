@@ -9,6 +9,7 @@ import { setCurrentUser } from '../../../redux/User/useraction';
 import Profile from './Profile';
 function Home_restrau() {
   const [data,setdata]=useState([]);
+  const dg = useSelector(state => state.user_reducer)
   const dispatch = useDispatch()
   useEffect(() => {
     const fetchData = async ()=>{
@@ -20,24 +21,28 @@ function Home_restrau() {
             'Authorization': `token ${token}`
           }
       });
-      setdata(res.data.rdetails);
-      dispatch(setCurrentUser(res.data))
-      console.log(data)
-      
+ 
+        setdata(res.data.rdetails);
+        dispatch(setCurrentUser(res.data))
+        console.log(data) 
     }
     catch(err){
 
-    }
-}
+      }
+  }
 
-fetchData();
+  fetchData();
 
-},[]);
+  },[]);
+  if(dg.current_user){
+    return ((data.length==0?<Details/>:<Profile/>));
+  }
   return (
         <div className="container home-restrau">
 
-          {localStorage.getItem('token')==null?<h1>Please <Link to='/restraunt/login' className="home-links">Login</Link> or <Link to='/restraunt/register' className="home-links">Register</Link> to start your business with Book-Your-Meal</h1>:(data.length==0?<Details/>:<Profile/>)}
- 
+         
+          
+          <h1>Please <Link to='/restraunt/login' className="home-links">Login</Link> or <Link to='/restraunt/register' className="home-links">Register</Link> to start your business with Book-Your-Meal</h1>
    
         </div>
 
