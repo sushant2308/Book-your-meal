@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model, authenticate
 class FoodSerializer(serializers.ModelSerializer):
     class Meta:
         model=FoodItem
-        fields=('name','id','price','image')
+        fields=('name','id','price','image','category')
 
 class UseriSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,8 +34,6 @@ class OrderSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for the users object"""
     id=serializers.ReadOnlyField()
-    #placed_orders=OrderItemSerializer(many=True,read_only=True)
-    #orders=OrderItemSerializer(many=True,read_only=True)
     udetails=UseriSerializer(many=True,read_only=True)
     rdetails=RestrauSerializer(many=True,read_only=True)
     items=FoodSerializer(many=True,read_only=True)
@@ -79,7 +77,7 @@ class AuthTokenSerializer(serializers.Serializer):
             password=password
         )
         if not user:
-            msg = _('Unable to authenticate with provided credentials')
+            msg = ('Unable to authenticate with provided credentials')
             raise serializers.ValidationError(msg, code='authentication')
 
         attrs['user'] = user

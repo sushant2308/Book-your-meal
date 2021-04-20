@@ -34,9 +34,29 @@ def fooditem(request,slug):
     user=User.objects.get(id=slug)
     food_items=FoodItem.objects.filter(parent=user)
     serializer=FoodSerializer(food_items,many=True)
+    return Response(serializer.data)
+
+@api_view(['GET',])
+def fooditemlist(request):
+    food_items=FoodItem.objects.all()
+    serializer=FoodSerializer(food_items,many=True)
 
     return Response(serializer.data)
 
+@api_view(['GET',])
+def fooditembycategory(request,slug):
+    food_items=FoodItem.objects.filter(category=slug)
+    serializer=FoodSerializer(food_items,many=True)
+
+    return Response(serializer.data)
+
+@api_view(['GET',])
+def restrau_by_food(request,slug):
+    food_item=FoodItem.objects.get(id=slug)
+    restrau=food_item.parent
+    serializer=UserSerializer(restrau)
+
+    return Response(serializer.data)
 
 
 @api_view(['POST',])

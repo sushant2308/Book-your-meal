@@ -1,6 +1,5 @@
 from django.db import models
 import uuid
-from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager,PermissionsMixin
 # Create your models here.
 class UserManager(BaseUserManager):
@@ -38,6 +37,7 @@ class FoodItem(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name=models.CharField(max_length=255,default="")
     price=models.IntegerField(default=0)
+    category=models.CharField(max_length=25)
     image=models.ImageField()
 
 class UserDetail(models.Model):
