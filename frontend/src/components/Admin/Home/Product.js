@@ -53,7 +53,8 @@ function Product() {
                                 <option value="Chole Bhature">Chole Bhature</option>
                                 <option value="Rajma Chawal">Rajma Chawal</option>
                                 <option value="Thali">Thali</option>
-                                <option value="Chicken">Chicken</option>
+                                <option value="Burger">Burger</option>
+                                <option value="Pizza">Pizza</option>
                             </select>
                     </div>
                     <div className="form-label-group">

@@ -58,6 +58,12 @@ def restrau_by_food(request,slug):
 
     return Response(serializer.data)
 
+@api_view(['GET',])
+def restraulist(request):
+    restrau=User.objects.filter(is_customer=False)
+    serializer=UserSerializer(restrau,many=True)
+
+    return Response(serializer.data)
 
 @api_view(['POST',])
 def create_food(request):
