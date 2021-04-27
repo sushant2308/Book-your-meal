@@ -7,7 +7,7 @@ import Burger from './Images/Burger.jpg';
 import RajmaChawal from './Images/Rajma-Chawal.jpg';
 import React from 'react';
 function Food_type() {
-    console.log(Biryani)
+
   return (
         <div className="container" style={{marginTop:"2rem"}}>
             <h3 style={{color:"white"}}>Checkout What We are Serving 😋</h3>

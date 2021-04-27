@@ -9,6 +9,7 @@ import Register from './components/Admin/Register/Register';
 import Login_restrau from './components/Admin/Login/Login_restrau';
 import Home_restrau from './components/Admin/Home/Home_restrau';
 import Product from './components/Admin/Home/Product';
+import Restraunt from './components/Customer/Restraunt/Restraunt';
 function App() {
   return (
     <Router>
@@ -36,6 +37,7 @@ const Customer = () => (
           <Route path='/'  component={Home} exact/>
           <Route path='/login' component={Login} exact/>
           <Route path='/signup' component={Signup} exact/>
+          <Route path='/restraunt/:id' component={Restraunt} exact/>
         </Switch>
 
     </div>

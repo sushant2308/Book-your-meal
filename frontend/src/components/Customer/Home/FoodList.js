@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Redirect ,Link} from 'react-router-dom';
 function FoodList() {
     const [data,setdata] = useState([])
     useEffect(() => {
@@ -17,7 +18,21 @@ function FoodList() {
       fetchData();
     
       },[]);
+      const [redirect,setredirect]= useState(null)
+      const purchase=(id)=>{
+        let url = `http://127.0.0.1:8000/api/restrau_item/${id}/`;
+        axios.get(url)
+            .then(res => {
+                setredirect(`/restraunt/`+res.data.id)
+               
+                
+            })
+            .catch(err => console.log(err))
 
+  
+  
+    }
+    if(redirect) return <Redirect to={redirect}/>
   return (
         <div className="container" style={{marginTop:"2rem"}}>
             <h2 style={{color:"white"}}>Here are our  Dishes 😋</h2>
@@ -29,7 +44,7 @@ function FoodList() {
                                 <img className="pic-1" src={`http://127.0.0.1:8000`+item.image}/>
                             </div>
                             <div className="product-content">
-                                <h3 className="title">{item.name}</h3>
+                                <h3 className="title" ><Link onClick={()=>purchase(item.id)}>{item.name}</Link></h3>
                                 <div className="price">Rs {item.price}</div>
                             </div>
                             </div>

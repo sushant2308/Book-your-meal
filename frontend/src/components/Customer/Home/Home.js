@@ -11,6 +11,12 @@ function Home() {
   const [data,setdata]=useState([]);
   const dg = useSelector(state => state.user_reducer)
   const dispatch = useDispatch()
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(getPosition);
+}
+else{
+    alert("Please Allow location excess")
+}
   useEffect(() => {
     const fetchData = async ()=>{
     try {
@@ -34,6 +40,10 @@ function Home() {
   fetchData();
 
   },[]);
+  function getPosition(position) {
+   localStorage.setItem("latitude",position.coords.latitude)
+   localStorage.setItem("longitude",position.coords.longitude)
+}
   return (
         <div className="container-fluid home">
             <div className="home-img"> </div>
