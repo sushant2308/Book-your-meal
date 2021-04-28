@@ -15,7 +15,6 @@ urlpatterns = [
     path('add_food/', views.create_food, name='add_food'),#checked
     path('addorder/<slug:slug>/', views.order_place, name='add_order'),
     path('food_item/<slug:slug>/',views.add_item,name='food_item'),
-    path('restrau_item/<slug:slug>/',views.restrau_by_food,name='food_item'),#checked
     path('restrauntlist/',views.restraulist,name='food_item'),#checked
     path('restraunt/<slug:slug>/',views.restraubyid,name='food_item'),#checked
     

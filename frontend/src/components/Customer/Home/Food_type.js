@@ -16,7 +16,7 @@ function Food_type() {
                     <div className="card" style={{width:"10rem",border:"0"}}>
                         <img className="card-img-top" src={Biryani}  style={{height:"180px",width:"200px"}} alt="Card image cap"/>
                         <div className="card-body">
-                            <h5 className="card-title" style={{color:"white"}}><Link to="/Biryani">Biryani</Link></h5>
+                            <h5 className="card-title" style={{color:"white"}}><Link to="/category/Biryani">Biryani</Link></h5>
                         </div>
                     </div>
                 </div>
@@ -24,7 +24,7 @@ function Food_type() {
                     <div className="card" style={{width:"10rem",border:"0"}}>
                         <img className="card-img-top" src={Pizza} style={{height:"180px",width:"200px"}} alt="Card image cap"/>
                         <div className="card-body">
-                            <h5 className="card-title" style={{color:"white"}}><Link to="/Pizza">Pizza</Link></h5>
+                            <h5 className="card-title" style={{color:"white"}}><Link to="/category/Pizza">Pizza</Link></h5>
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,7 @@ function Food_type() {
                     <div className="card" style={{width:"10rem",border:"0"}}>
                         <img className="card-img-top" src={Burger} style={{height:"180px",width:"200px"}} alt="Card image cap"/>
                         <div className="card-body">
-                            <h5 className="card-title" style={{color:"white"}}><Link to="/Burger">Burger</Link></h5>
+                            <h5 className="card-title" style={{color:"white"}}><Link to="/category/Burger">Burger</Link></h5>
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@ function Food_type() {
                     <div className="card" style={{width:"10rem",border:"0"}}>
                         <img className="card-img-top" src={CholeBhature} style={{height:"180px",width:"200px"}} alt="Card image cap"/>
                         <div className="card-body">
-                            <h5 className="card-title" style={{color:"white"}}><Link to="/Chole-Bhature">Chole-Bhature</Link></h5>
+                            <h5 className="card-title" style={{color:"white"}}><Link to="/category/Chole-Bhature">Chole-Bhature</Link></h5>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@ function Food_type() {
                     <div className="card" style={{width:"10rem",border:"0"}}>
                         <img className="card-img-top" src={RajmaChawal} style={{height:"180px",width:"200px"}} alt="Card image cap"/>
                         <div className="card-body">
-                            <h5 className="card-title" style={{color:"white"}}><Link to="/Rajma-Chawal">Rajma-Chawal</Link></h5>
+                            <h5 className="card-title" style={{color:"white"}}><Link to="/category/Rajma-Chawal">Rajma-Chawal</Link></h5>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@ function Food_type() {
                     <div className="card" style={{width:"10rem",border:"0"}}>
                         <img className="card-img-top" src={Thali} style={{height:"180px",width:"200px"}} alt="Card image cap"/>
                         <div className="card-body">
-                            <h5 className="card-title" style={{color:"white"}}><Link to="/Thali">Thali</Link></h5>
+                            <h5 className="card-title" style={{color:"white"}}><Link to="/category/Thali">Thali</Link></h5>
                         </div>
                     </div>
                 </div>

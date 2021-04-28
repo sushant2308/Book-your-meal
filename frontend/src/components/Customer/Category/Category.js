@@ -1,27 +1,32 @@
-import React, { useEffect, useState } from 'react';
+
+import React,{useState,useEffect} from 'react';
 import axios from 'axios';
-import { Redirect ,Link} from 'react-router-dom';
-function FoodList() {
-    const [data,setdata] = useState([])
+import { useParams ,Link} from 'react-router-dom';
+function Category() {
+    let { id } = useParams();
+    const [data,setdata] = useState(null)
     useEffect(() => {
         const fetchData = async ()=>{
         try {
-          const res = await axios.get('http://127.0.0.1:8000/api/allfoodlist/');
-            console.log(res.data)
+          const res = await axios.get(`http://127.0.0.1:8000/api/food_by_category/`+id);
             setdata(res.data);
         }
         catch(err){
     
-          }
+        }
       }
     
       fetchData();
     
       },[]);
+
   return (
-        <div className="container" style={{marginTop:"2rem"}}>
-            <h2 style={{color:"white"}}>Here are our  Dishes 😋</h2>
-            <div className="row">
+    <div className="container-fluid" style={{marginTop:"1rem"}}>
+        
+    {data ? 
+        <div style={{color:"white"}}>
+            <h3>Here are some of our {id}</h3>
+            
                 {data.map((item,i)=>(
                         <div className="col-md-3 col-sm-6" key={{i}}>
                             <div className="product-grid">
@@ -37,12 +42,14 @@ function FoodList() {
                         </div>
                 ))
                 }
-            </div>
-
-            
-        </div>
+        </div>:
+    <p style={{color:"white"}}>
+        Loading...
+        </p>}
+        
+    </div>
 
   );
 }
 
-export default FoodList;
+export default Category;

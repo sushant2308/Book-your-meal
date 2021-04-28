@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model, authenticate
 class FoodSerializer(serializers.ModelSerializer):
     class Meta:
         model=FoodItem
-        fields=('name','id','price','image','category')
+        fields=('name','id','price','image','category','parent_id')
 
 class UseriSerializer(serializers.ModelSerializer):
     class Meta:

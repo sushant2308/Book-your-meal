@@ -40,6 +40,9 @@ class FoodItem(models.Model):
     category=models.CharField(max_length=25)
     image=models.ImageField()
 
+    def parent_id(self):
+        return str(self.parent.id)
+
 class UserDetail(models.Model):
     parent=models.ForeignKey(User,on_delete=models.CASCADE,related_name="udetails")
     name=models.CharField(max_length=255,default="")

@@ -51,14 +51,6 @@ def fooditembycategory(request,slug):
     return Response(serializer.data)
 
 @api_view(['GET',])
-def restrau_by_food(request,slug):
-    food_item=FoodItem.objects.get(id=slug)
-    restrau=food_item.parent
-  
-
-    return Response({"id":restrau.id})
-
-@api_view(['GET',])
 def restraulist(request):
     restrau=User.objects.filter(is_customer=False)
     serializer=UserSerializer(restrau,many=True)
