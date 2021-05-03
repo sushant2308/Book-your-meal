@@ -27,7 +27,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     """Custom user model that suppors using email instead of username"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(max_length=255, unique=True)
-    is_customer=models.BooleanField()
+    is_customer=models.BooleanField(default=True)
+    is_staff=models.BooleanField(default=False)
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
@@ -56,7 +57,7 @@ class RestrauntDetail(models.Model):
     longitude=models.CharField(max_length=255,default="")
     address=models.CharField(max_length=1500,default="")
     rating=models.IntegerField(default=0)
-    image=models.ImageField()
+    image=models.ImageField(null=True)
 
 class Order(models.Model):
     customer=models.ForeignKey(User,on_delete=models.CASCADE,related_name="placed_order")
@@ -69,7 +70,7 @@ class Order(models.Model):
         ordering = ('-created',)
 
     def __str__(self):
-        return '%s' % (self.order_id)
+        return '%s' % (self.id)
 
     def total(self):
         total = 0

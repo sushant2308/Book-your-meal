@@ -1,6 +1,8 @@
+from django.db import models
 from django.db.models import fields
 from rest_framework import serializers
-from .models import FoodItem,Order,UserDetail,RestrauntDetail,OrderItem
+from rest_framework.fields import ReadOnlyField
+from .models import FoodItem,Order, User,UserDetail,RestrauntDetail,OrderItem
 from django.contrib.auth import get_user_model, authenticate
 
 
@@ -20,16 +22,18 @@ class RestrauSerializer(serializers.ModelSerializer):
         fields=('name','latitude','longitude','address','image')   
 
 
-class OrderItemSerializer(serializers.Serializer):
+class OrderItemSerializer(serializers.ModelSerializer):
+    item=FoodSerializer(read_only=True)
     class Meta:
         model=OrderItem
-        fields=('desc','item','price','quantity')
+        fields=('desc','price','quantity','item',)
 
 class OrderSerializer(serializers.ModelSerializer):
     orderitems=OrderItemSerializer(many=True,read_only=True)
     class Meta:
         model=Order
-        fields=('created','is_active','status','id','orderitems')
+        fields=('created','is_active','status','id','orderitems','total',)
+
 
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for the users object"""
@@ -44,7 +48,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """Create a new user with encrypted password and return it"""
-        return get_user_model().objects.create_user(**validated_data)
+        user =get_user_model().objects.create_user(**validated_data)
+        return user
 
     def update(self, instance, validated_data):
         """Update a user, setting the password correctly and return it"""

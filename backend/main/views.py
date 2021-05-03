@@ -1,8 +1,10 @@
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics, authentication, permissions, serializers,status
 from rest_framework import response
 from rest_framework.authtoken.views import ObtainAuthToken
 from django.shortcuts import redirect, render,get_object_or_404
 from rest_framework.settings import api_settings
+from rest_framework import viewsets,generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import UserSerializer,AuthTokenSerializer,FoodSerializer,OrderItemSerializer,OrderSerializer,RestrauSerializer,UseriSerializer
@@ -73,15 +75,26 @@ def create_food(request):
 
     return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST',])
-def order_place(request,slug):
-    serializer=OrderSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save(customer=request.user,Restraunt=User.objects.get(id=slug))
-        return Response(serializer.data,status=status.HTTP_201_CREATED)
+class AddOrderViewSet(viewsets.ModelViewSet):
+    queryset=Order.objects.all()
+    serializer_class=OrderSerializer
 
-    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    def create(self, request, *args, **kwargs):
+        customer=User.objects.get(id=request.data['customer_id'])
+        restraunt=User.objects.get(id=request.data['restraunt_id'])
+        order=Order.objects.create(customer=customer,Restraunt=restraunt)
+        order_items=request.data['orderitems']
+        order.save()
+        for item in order_items:
+            food=FoodItem.objects.get(id=item['id'])
+            order_item=OrderItem.objects.create(item=food,order=order)
+            order_item.desc=item['desc']
+            order_item.price=item['price']
+            order_item.quantity=item['quantity']
+            order_item.save()
+            print(item)
 
+        return Response(OrderSerializer(order).data)
 
 
 @api_view(['POST',])
