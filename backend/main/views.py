@@ -10,9 +10,35 @@ from rest_framework.decorators import api_view
 from .serializers import UserSerializer,AuthTokenSerializer,FoodSerializer,OrderItemSerializer,OrderSerializer,RestrauSerializer,UseriSerializer
 from .models import FoodItem,Order,OrderItem, User,UserDetail,RestrauntDetail
 
-class CreateUserView(generics.CreateAPIView):
-    """Create a new user in the system"""
-    serializer_class = UserSerializer
+class CreateUserViewSet(viewsets.ModelViewSet):
+    queryset=User.objects.all()
+    serializer_class=UserSerializer
+
+    def create(self, request, *args, **kwargs):
+        
+        if( User.objects.filter(email=request.data['email']).exists()):
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            user=User.objects.create(email=request.data['email'],password=request.data['password'],is_customer=request.data['is_customer'])
+            user.save()
+            if(request.data['is_customer']==True):
+                item=request.data['udetails']
+                udetails=UserDetail.objects.create(parent=user)
+                udetails.name=item['name']
+                udetails.phone_no=item['phone_no']
+                udetails.save()
+            else:
+                item=request.data['rdetails']
+                rdetails=RestrauntDetail.objects.create(parent=user)
+                rdetails.name=item['name']
+                rdetails.latitude=item['latitude']
+                rdetails.longitude=item['longitude']
+                rdetails.address=item['address']
+                rdetails.save()
+
+            return Response(UserSerializer(user).data)
+
+
 
  
 class CreateTokenView(ObtainAuthToken):

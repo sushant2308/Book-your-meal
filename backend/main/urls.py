@@ -7,8 +7,8 @@ app_name = 'main'
 from rest_framework.routers import DefaultRouter
 router = DefaultRouter(trailing_slash=False)
 router.register(r'addorder', views.AddOrderViewSet)
+router.register(r'create', views.CreateUserViewSet)
 urlpatterns = [
-    path('create/', views.CreateUserView.as_view(), name='create'),#checked
     path('token/', views.CreateTokenView.as_view(), name='token'),#checked
     path('me/', views.ManageUserView.as_view(), name='me'),#checked
     path('restrau_detail/', views.restraunt_detail, name='restrau'),#checked
